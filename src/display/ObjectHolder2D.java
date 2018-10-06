@@ -8,7 +8,7 @@ public class ObjectHolder2D { //Bulds the canvas and stuff
 	private Canvas c = null;
 	public GraphicsContext ctx = null;
 	private double w, h;
-	private double x_, y_;
+	//private double x_, y_;
 
 	public ObjectHolder2D(double w, double h) {
 		this.w = w;

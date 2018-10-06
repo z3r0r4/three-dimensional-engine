@@ -5,7 +5,6 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
@@ -41,16 +40,16 @@ public class JavaFX extends Application {
 		timer = new AnimationTimer() {
 			@Override
 			public void handle(long now) {
-				Renderer.drawLine(Obj2D);		//updates the canvas with ctx
+				Renderer.draw(Obj2D);		//updates the canvas with ctx
 			}
 		};
 		timer.start();
 
-//		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//			public void handle(KeyEvent event) {
-//				Renderer.handleKeyPress(event.getCode());
-//			}
-//		});
+		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent event) {
+				Renderer.handleKeyPress(event.getCode());
+			}
+		});
 		
 
 		root.getChildren().add(Obj2D.getCanvas()); //adding the canvas, filled with stuff, to the scene

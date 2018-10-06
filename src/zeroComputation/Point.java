@@ -10,26 +10,17 @@ public class Point extends Matrix {
 
 	public Point(double... koefficent) {
 		super(koefficent.length, 1);
-		System.out.println("Constructer 1");
+		
 		for (int i = 0; i < koefficent.length; i++) {
 			this.setData(koefficent[i], i, 0);
 		}
 	}
 
-//	public Point(double x, double y, double z) { //für homogene korrdibnaten
-//		super(4, 1);
-//		System.out.println("Constructer h");
-//		this.setData(x, 0, 0);
-//		this.setData(y, 1, 0);
-//		this.setData(z, 2, 0);
-//		this.setData(1, 3, 0);
-//	}
-
 	public Point(Matrix A) {
 		super(A.getRows(), A.getColumns());
 
 		if (A.getColumns() != 1)
-			throw new IllegalArgumentException("Cant be a Point");
+			throw new IllegalArgumentException("Can't be a Point");
 
 		for (int i = 0; i < A.getRows(); i++) {
 			this.setData(A.getData(i, 0), i, 0);
@@ -41,7 +32,7 @@ public class Point extends Matrix {
 	}
 
 	public Point OrthographicProjection() {
-		double r = 1f;
+		double r = 10f;
 		double l = 3;
 		double t = 1f;
 		double b = -1f;
@@ -69,8 +60,8 @@ public class Point extends Matrix {
 				{ -Math.sin(angleY), 0, Math.cos(angleY) } });
 
 		Matrix R_z = Matrix.fromArray(new double[][] {
-				{ Math.cos(angleZ), Math.sin(angleZ), 0 },
-				{ -Math.sin(angleZ), Math.cos(angleZ), 0 },
+				{ Math.cos(angleZ), -Math.sin(angleZ), 0 },
+				{ Math.sin(angleZ), Math.cos(angleZ), 0 },
 				{ 0, 0, 1 } });
 
 		return new Point(Matrix.prod(Matrix.prod(Matrix.prod(R_x, R_y), R_z), P));
@@ -88,8 +79,8 @@ public class Point extends Matrix {
 				{ -Math.sin(angleY), 0, Math.cos(angleY) } });
 
 		Matrix R_z = Matrix.fromArray(new double[][] {
-				{ Math.cos(angleZ), Math.sin(angleZ), 0 },
-				{ -Math.sin(angleZ), Math.cos(angleZ), 0 },
+				{ Math.cos(angleZ), -Math.sin(angleZ), 0 },
+				{ Math.sin(angleZ), Math.cos(angleZ), 0 },
 				{ 0, 0, 1 } });
 
 		this.setData((new Point(
