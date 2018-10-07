@@ -10,7 +10,7 @@ public class Point extends Matrix {
 
 	public Point(double... koefficent) {
 		super(koefficent.length, 1);
-		
+
 		for (int i = 0; i < koefficent.length; i++) {
 			this.setData(koefficent[i], i, 0);
 		}
@@ -28,17 +28,19 @@ public class Point extends Matrix {
 	}
 
 	public Point simpleOrthographicProjection() {
+		System.out.println("simpleOrtho");
 		return new Point(Matrix.prod(O, this));
 	}
 
 	public Point OrthographicProjection() {
+		System.out.println("Ortho");
 		double r = 10f;
 		double l = 3;
 		double t = 1f;
 		double b = -1f;
 		double n = -1f;
 		double f = 1f;
-		
+
 		Matrix H = Matrix.fromArray(new double[][] {
 				{ 2 / (r - l), 0, 0, -(r + l) / (r - l) },
 				{ 0, 2 / (t - b), 0, -(t + b) / (t - b) },
@@ -46,6 +48,18 @@ public class Point extends Matrix {
 				{ 0, 0, 0, 1 }
 		});
 		return new Point(Matrix.prod(H, this));
+	}
+
+	public Point CabinetProjection(double CabinetAngle) {
+		System.out.println("Cabinet");
+		Matrix P = Matrix.fromArray(new double[][] {
+				{ 1, 0, 0.5 * Math.cos(CabinetAngle), 0 },
+				{ 0, 1, 0.5 * Math.sin(CabinetAngle), 0 },
+		});
+		Matrix.printM(P);
+		Matrix.printM(this);
+		Matrix.printM(Matrix.prod(P, this));
+		return new Point(Matrix.prod(P, this));
 	}
 
 	public static Point RotateXYZ(Point P, double angleX, double angleY, double angleZ) {
@@ -82,6 +96,30 @@ public class Point extends Matrix {
 				{ Math.cos(angleZ), -Math.sin(angleZ), 0 },
 				{ Math.sin(angleZ), Math.cos(angleZ), 0 },
 				{ 0, 0, 1 } });
+
+		this.setData((new Point(
+				Matrix.prod(Matrix.prod(Matrix.prod(R_x, R_y), R_z), this)))
+						.getData());
+	}
+
+	public void RotateXYZh(double angleX, double angleY, double angleZ) {
+		Matrix R_x = Matrix.fromArray(new double[][] {
+				{ 1, 0, 0, 0 },
+				{ 0, Math.cos(angleX), -Math.sin(angleX), 0 },
+				{ 0, Math.sin(angleX), Math.cos(angleX), 0 },
+				{ 0, 0, 0, 1 } });
+
+		Matrix R_y = Matrix.fromArray(new double[][] {
+				{ Math.cos(angleY), 0, Math.sin(angleY), 0 },
+				{ 0, 1, 0, 0 },
+				{ -Math.sin(angleY), 0, Math.cos(angleY), 0 },
+				{ 0, 0, 0, 1 } });
+
+		Matrix R_z = Matrix.fromArray(new double[][] {
+				{ Math.cos(angleZ), -Math.sin(angleZ), 0, 0 },
+				{ Math.sin(angleZ), Math.cos(angleZ), 0, 0 },
+				{ 0, 0, 1, 0 },
+				{ 0, 0, 0, 1 } });
 
 		this.setData((new Point(
 				Matrix.prod(Matrix.prod(Matrix.prod(R_x, R_y), R_z), this)))
@@ -147,7 +185,7 @@ public class Point extends Matrix {
 						.getData());
 	}
 
-	public double[] xPoints(Point... points) {
+	public static double[] xPoints(Point... points) {
 		double[] x = new double[points.length];
 
 		for (int i = 0; i < points.length; i++)
@@ -156,7 +194,7 @@ public class Point extends Matrix {
 		return x;
 	}
 
-	public double[] yPoints(Point... points) {
+	public static double[] yPoints(Point... points) {
 		double[] y = new double[points.length];
 
 		for (int i = 0; i < points.length; i++)
