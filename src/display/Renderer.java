@@ -6,25 +6,41 @@ import zeroComputation.Point;
 import zeroComputation.ThreeDObject;
 import zeroComputation.TwoDObject;
 
+/**
+ * @author Z3R0R4
+ * @version 0.1
+ * @description Renders all the Stuff and handles User input
+ */
 public class Renderer {
 	static double k = 0.02;
-	static ThreeDObject Cube = new ThreeDObject(-50d, -50d, -50d, 100d, 100d, 100d);
+	static ThreeDObject Cube3 = new ThreeDObject(-50d, -50d, -50d, 100d, 100d, 100d);
+	static ThreeDObject Sphere = new ThreeDObject();
 
 	public static void draw(ObjectHolder2D obj2d) {
-
+		
 		obj2d.clear();
-		Cube.RotateXYZh(k, 0,0);
 
-		TwoDObject Cube2 = new TwoDObject(Cube);
+		Sphere.RotateXYZh(Math.toRadians(1), Math.toRadians(0), Math.toRadians(0));
 
-		Cube2.getVertices().forEach(v -> drawLine(Cube2.getEdges().get(v[0]), Cube2.getEdges().get(v[1]), obj2d));
+		TwoDObject Sphere2 = new TwoDObject(Sphere);
 
-		Cube2.getFaces().forEach(f -> {
-			Point[] faceP = new Point[f.length];
-			for (int i = 0; i < f.length; i++)
-				faceP[i] = Cube2.edges.get(f[i]);
-			drawFace(obj2d, faceP);
-		});
+		
+		Sphere2.getVertices().forEach(v -> drawLine(Sphere2.getEdges().get(v[0]), Sphere2.getEdges().get(v[1]), obj2d));
+
+		//		obj2d.clear();
+		//		
+//				Cube3.RotateXYZh(Math.toRadians(1),Math.toRadians(2),Math.toRadians(3));
+//		
+//				TwoDObject Cube2 = new TwoDObject(Cube3);
+//		
+//				Cube2.getVertices().forEach(v -> drawLine(Cube2.getEdges().get(v[0]), Cube2.getEdges().get(v[1]), obj2d));
+//		
+//				Cube2.getFaces().forEach(f -> {
+//					Point[] faceP = new Point[f.length];
+//					for (int i = 0; i < f.length; i++)
+//						faceP[i] = Cube2.edges.get(f[i]);
+//					drawFace(obj2d, faceP);
+//				});
 	}
 
 	public static void drawLine(Point A, Point B, ObjectHolder2D obj2d) {

@@ -2,18 +2,23 @@ package zeroComputation;
 
 import java.util.ArrayList;
 
+/**
+ * @author Z3R0R4
+ * @version 0.1
+ * @description Super class that holds
+ */
 public class ThreeDObject {
 
 	public ArrayList<Point> edges = new ArrayList<Point>();
 	public ArrayList<int[]> vertices = new ArrayList<int[]>();
 	public ArrayList<int[]> faces = new ArrayList<int[]>();
 
-	public ThreeDObject() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public ThreeDObject(double x, double y, double z, double w, double h, double d) {
 		initCube(x, y, z, w, h, d);
+	}
+
+	public ThreeDObject() {
+		initSphere(20, 100, new Point(0, 0, 0));
 	}
 
 	private ThreeDObject initCube(double x, double y, double z, double w, double h, double d) {
@@ -48,6 +53,37 @@ public class ThreeDObject {
 		return this;
 	}
 
+	private ThreeDObject initSphere(double stepsize, double r, Point P) {
+		//		int i = 0;
+
+		for (double phi = 0; phi < 2 * Math.PI; phi += Math.toRadians(stepsize)) {
+			for (double alpha = 0; alpha < 2 * Math.PI; alpha += Math.toRadians(stepsize)) {
+				edges.add(
+						new Point(P.getData(0, 0) + r * Math.cos(phi) * Math.cos(alpha),
+								P.getData(1, 0) + r * Math.cos(phi) * Math.sin(alpha),
+								P.getData(2, 0) + r * Math.sin(phi),
+								1)); //shoukd use differnt angles but dont care
+				//				if (i > 0)
+				//					vertices.add(new int[] { i -1, i  });
+				//				i++;
+			}
+		}
+		for (int i = 0; i < 360 ; i += stepsize)
+			for (int j = 0; j < 360 ; j += stepsize)
+				vertices.add(new int[] { i, j });
+		
+		return this;
+	}
+
+	public void RotateXYZ(double angleX, double angleY, double angleZ) {
+		edges.forEach(e -> e.RotateXYZ(angleX, angleY, angleZ));
+	}
+
+	public void RotateXYZh(double angleX, double angleY, double angleZ) {
+		edges.forEach(e -> e.RotateXYZh(angleX, angleY, angleZ));
+
+	}
+
 	public ArrayList<Point> getEdges() {
 		return edges;
 	}
@@ -70,15 +106,6 @@ public class ThreeDObject {
 
 	public void setFaces(ArrayList<int[]> faces) {
 		this.faces = faces;
-	}
-
-	public void RotateXYZ(double angleX, double angleY, double angleZ) {
-		edges.forEach(e -> e.RotateXYZ(angleX, angleY, angleZ));
-	}
-
-	public void RotateXYZh(double angleX, double angleY, double angleZ) {
-		edges.forEach(e -> e.RotateXYZh(angleX, angleY, angleZ));
-
 	}
 
 }

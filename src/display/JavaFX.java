@@ -8,6 +8,12 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+/**
+ * @author Z3R0R4
+ * @version 0.1
+ * @description Class that Starts all needed things for JavaFx and Animation
+ *              many things are outsourced to other classes
+ */
 public class JavaFX extends Application {
 	final static double W = 500.0, H = 500.0;
 	int i = 0;
@@ -40,7 +46,7 @@ public class JavaFX extends Application {
 		timer = new AnimationTimer() {
 			@Override
 			public void handle(long now) {
-				Renderer.draw(Obj2D);		//updates the canvas with ctx
+				Renderer.draw(Obj2D); //updates the canvas with ctx
 			}
 		};
 		timer.start();
@@ -50,7 +56,6 @@ public class JavaFX extends Application {
 				Renderer.handleKeyPress(event.getCode());
 			}
 		});
-		
 
 		root.getChildren().add(Obj2D.getCanvas()); //adding the canvas, filled with stuff, to the scene
 

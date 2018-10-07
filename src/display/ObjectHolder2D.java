@@ -3,6 +3,12 @@ package display;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
+/**
+ * @author Z3R0R4
+ * @version 0.1
+ * @description Builds and manages the Canvas
+ */
+
 public class ObjectHolder2D { //Bulds the canvas and stuff
 
 	private Canvas c = null;
