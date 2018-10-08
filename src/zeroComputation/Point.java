@@ -59,6 +59,37 @@ public class Point extends Matrix {
 		return new Point(Matrix.prod(P, this));
 	}
 
+	//USING POINTS AS MAKESHIFT VECTORS
+	public static double distance(Point A, Point B) {
+		if (A.getRows() != B.getRows())
+			throw new IllegalArgumentException("Dimensions not equal");
+		double d = 0;
+		for (int i = 0; i < A.getRows(); i++) {
+			d += Math.pow(B.getData(i, 0)-A.getData(i, 0), 2);
+		}
+		return Math.sqrt(d);
+	}
+
+	public static double length(Point A) {
+		double d = 0;
+		for (int i = 0; i < A.getRows(); i++) {
+			d += Math.pow(A.getData(i, 0), 2);
+		}
+		return Math.sqrt(d);
+	}
+
+	public static double dotP(Point A, Point B) {
+		if (A.getRows() != B.getRows())
+			throw new IllegalArgumentException("Dimensions not equal");
+		return Matrix.prod(A, Matrix.T(B)).getData(0, 0);
+	}
+
+	public static double angle(Point A, Point B, Point C) {
+		Point AB = new Point(Matrix.add(A, Matrix.negate(B)));
+		Point AC = new Point(Matrix.add(A, Matrix.negate(C)));
+		return Math.acos(dotP(AB, AC) / (length(AB) * length(AC)));
+	}
+
 	public static Point RotateXYZ(Point P, double angleX, double angleY, double angleZ) {
 		Matrix R_x = Matrix.fromArray(new double[][] {
 				{ 1, 0, 0 },

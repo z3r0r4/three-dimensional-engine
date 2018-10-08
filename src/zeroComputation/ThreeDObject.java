@@ -1,6 +1,9 @@
 package zeroComputation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
  * @author Z3R0R4
@@ -18,7 +21,8 @@ public class ThreeDObject {
 	}
 
 	public ThreeDObject() {
-		initSphere(20, 100, new Point(0, 0, 0));
+		initSpherePoints(10, 100, new Point(0, 0, 0));
+		initVertecies(2);
 	}
 
 	private ThreeDObject initCube(double x, double y, double z, double w, double h, double d) {
@@ -53,26 +57,52 @@ public class ThreeDObject {
 		return this;
 	}
 
-	private ThreeDObject initSphere(double stepsize, double r, Point P) {
-		//		int i = 0;
-
+	private ThreeDObject initSpherePoints(double stepsize, double r, Point P) {
+		int i = 0;
 		for (double phi = 0; phi < 2 * Math.PI; phi += Math.toRadians(stepsize)) {
 			for (double alpha = 0; alpha < 2 * Math.PI; alpha += Math.toRadians(stepsize)) {
+
 				edges.add(
 						new Point(P.getData(0, 0) + r * Math.cos(phi) * Math.cos(alpha),
 								P.getData(1, 0) + r * Math.cos(phi) * Math.sin(alpha),
 								P.getData(2, 0) + r * Math.sin(phi),
 								1)); //shoukd use differnt angles but dont care
 				//				if (i > 0)
-				//					vertices.add(new int[] { i -1, i  });
+				//					vertices.add(new int[] { i, i });
 				//				i++;
 			}
 		}
-		for (int i = 0; i < 360 ; i += stepsize)
-			for (int j = 0; j < 360 ; j += stepsize)
-				vertices.add(new int[] { i, j });
-		
 		return this;
+	}
+
+	private void initVertecies(int c) {//number of conncetions
+		//System.out.println("lolo");
+		for (int i = 0; i < edges.size(); i++) {
+			ArrayList<Double> PointDistance = new ArrayList<Double>();
+			ArrayList<Double> PointDistanceC = new ArrayList<Double>();
+			for (int j = 0; j < edges.size(); j++)
+				if (i != j)
+					PointDistance.add(Point.distance(edges.get(i), edges.get(j)));
+				else
+					PointDistance.add(100000d);
+
+			for (Double d : PointDistance) { //clone
+				PointDistanceC.add(d);
+			}
+			double m = Collections.min(PointDistance);
+			PointDistance.sort((Double z1, Double z2) -> {
+				if (z1 > z2)
+					return 1;
+				if (z1 < z2)
+					return -1;
+				return 0;
+			});
+			for (int j = 0; j < c; j++)
+				vertices.add(new int[] { i, PointDistanceC.indexOf(PointDistance.get(j)) });
+			//System.out.println(i + " " + PointDistance.get(0) + " " + m);
+
+			//System.out.println(Arrays.toString(vertices.toArray()));
+		}
 	}
 
 	public void RotateXYZ(double angleX, double angleY, double angleZ) {

@@ -20,7 +20,7 @@ public class Renderer {
 		
 		obj2d.clear();
 
-		Sphere.RotateXYZh(Math.toRadians(1), Math.toRadians(0), Math.toRadians(0));
+		Sphere.RotateXYZh(Math.toRadians(0.5), Math.toRadians(0.5), Math.toRadians(0));
 
 		TwoDObject Sphere2 = new TwoDObject(Sphere);
 
