@@ -27,7 +27,7 @@ public class Renderer {
 	 ctx = JavaFX.Buffer2D.ctx;
 		obj2d.clear();
 		Sphere.RotateXYZh(Math.toRadians(0.5), Math.toRadians(0.5), Math.toRadians(0));
-		drawObj(Sphere);
+		drawObj(Cube);
 	}
 
 	public static void drawObj(Obj Obj1) {

@@ -20,7 +20,7 @@ public class JavaFX extends Application {
 	static ObjBuffer2D Buffer2D = null;
 	private static AnimationTimer timer;
 
-	public static void intit(ObjBuffer2D buffer) {
+	public static void init(ObjBuffer2D buffer) {
 		JavaFX.Buffer2D = buffer;
 	}
 
@@ -28,16 +28,8 @@ public class JavaFX extends Application {
 		new ObjBuffer2D(width, height);
 		launch(args);
 	}
-
-	int i = 0;
 	@Override
 	public void start(Stage primaryStage) {
-		if (i < 1) {
-			i++;
-			//Buffer2D = new ObjBuffer2D(500, 500);
-		} //this is garbage
-
-		//necessary part
 		Group root = new Group(); //layout
 		Scene scene = new Scene(root, W, H);
 		primaryStage.setScene(scene);
@@ -59,7 +51,6 @@ public class JavaFX extends Application {
 		});
 
 		root.getChildren().add(Buffer2D.getCanvas()); //adding the canvas, filled with stuff, to the scene
-
 		primaryStage.show(); //show window
 	}
 }
