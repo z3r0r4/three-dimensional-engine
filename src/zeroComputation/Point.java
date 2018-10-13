@@ -32,32 +32,7 @@ public class Point extends Matrix {
 		}
 	}
 
-	public Point simpleOrthographicProjection() {
-		//System.out.println("simpleOrtho");
-		return new Point(Matrix.prod(O, this));
-	}
-
-	public Point OrthographicProjection() {
-		//System.out.println("Ortho");
-		double r = 1f, l = -1f, t = 1f, b = -1f, n = -1f, f = 1f;
-
-		Matrix H = Matrix.fromArray(new double[][] {
-				{ 2 / (r - l), 0, 0, -(r + l) / (r - l) },
-				{ 0, 2 / (t - b), 0, -(t + b) / (t - b) },
-				{ 0, 0, 2 / (f - n), -(f + n) / (f - n) },
-				{ 0, 0, 0, 1 }
-		});
-		return new Point(Matrix.prod(H, this));
-	}
-
-	public Point CabinetProjection(double CabinetAngle) {
-		//System.out.println("Cabinet");
-		Matrix P = Matrix.fromArray(new double[][] {
-				{ 1, 0, 0.5 * Math.cos(CabinetAngle), 0 },
-				{ 0, 1, 0.5 * Math.sin(CabinetAngle), 0 },
-		});
-		return new Point(Matrix.prod(P, this));
-	}
+	
 
 	//USING POINTS AS MAKESHIFT VECTORS
 	public static double distance(Point A, Point B) {

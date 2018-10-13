@@ -9,19 +9,20 @@ import javafx.scene.canvas.GraphicsContext;
  * @description Builds and manages the Canvas
  */
 
-public class ObjectHolder2D { //Bulds the canvas and stuff
+public class ObjBuffer2D { //Bulds the canvas and stuff
 
 	private Canvas c = null;
 	public GraphicsContext ctx = null;
 	private double w, h;
 	//private double x_, y_;
 
-	public ObjectHolder2D(double w, double h) {
+	public ObjBuffer2D(double w, double h) {
 		this.w = w;
 		this.h = h;
 		c = new Canvas(w, h);
 		ctx = c.getGraphicsContext2D();
 		ctx.translate(w / 2, h / 2);
+		//JavaFX.initialize
 	}
 
 	public Canvas getCanvas() {
