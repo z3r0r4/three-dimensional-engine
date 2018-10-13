@@ -22,7 +22,7 @@ public class ObjBuffer2D { //Bulds the canvas and stuff
 		c = new Canvas(w, h);
 		ctx = c.getGraphicsContext2D();
 		ctx.translate(w / 2, h / 2);
-		//JavaFX.initialize
+		JavaFX.intit(this);
 	}
 
 	public Canvas getCanvas() {

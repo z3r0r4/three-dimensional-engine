@@ -31,7 +31,7 @@ public class Renderer {
 	}
 
 	public static void drawObj(Obj Obj1) {
-		ArrayList<Point> twoDEdges = Projection.CabinetProjection(Obj1);
+		ArrayList<Point> twoDEdges = Projection.OrthographicProjection(Obj1);
 		drawVertices(Obj1, twoDEdges);
 		//drawFaces(Obj1);
 	}
@@ -41,9 +41,9 @@ public class Renderer {
 	}
 
 	public static void drawLine(Point A, Point B) {
-		Point.printM(A);
-		Point.printM(B);
-		//System.exit(0);
+//		Point.printM(A);
+//		Point.printM(B);
+//		//System.exit(0);
 		ctx.strokeLine(A.getData(0, 0), A.getData(1, 0), B.getData(0, 0), B.getData(1, 0));
 	}
 

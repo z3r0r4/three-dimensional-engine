@@ -20,13 +20,13 @@ public class JavaFX extends Application {
 	final static double W = 500.0, H = 500.0;
 	private static ObjBuffer2D Buffer2D = null;
 	private static AnimationTimer timer;
-
+	
 	public static void intit(ObjBuffer2D buffer) {
 		JavaFX.Buffer2D = buffer;
 	}
 	
 	public static void start(String[] args) {
-		
+	
 		//		ObjBuffer2D buffer = new ObjBuffer2D(width, height);
 		//		
 		//		Buffer2D = buffer;
@@ -35,10 +35,10 @@ public class JavaFX extends Application {
 		//		launch(args);
 		//		Buffer2D = new ObjBuffer2D(500, 500);
 			//	new ObjBuffer2D(width, height);
-		if (Buffer2D == null) {
-			System.out.println("Won't draw");
-			System.exit(0);
-		}
+//		if (Buffer2D == null) {
+//			System.out.println("Won't draw");
+//			System.exit(0);
+//		}
 		launch(args);
 	}
 
@@ -48,8 +48,9 @@ public class JavaFX extends Application {
 	public void start(Stage primaryStage) {
 		if (i < 1) {
 			i++;
-			Buffer2D = new ObjBuffer2D(500, 500);
+			//Buffer2D = new ObjBuffer2D(500, 500);
 		} //this is garbage
+		Renderer R = new Renderer(Buffer2D);
 			//necessary part
 		Group root = new Group(); //layout
 		Scene scene = new Scene(root, W, H);
