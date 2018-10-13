@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-
 /**
  * @author Z3R0R4
  * @version 0.1
@@ -33,7 +32,6 @@ public class JavaFX extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		Renderer R = new Renderer(Buffer2D);
-			
 		Group root = new Group(); //layout
 		Scene scene = new Scene(root, W, H);
 		primaryStage.setScene(scene);
@@ -47,7 +45,6 @@ public class JavaFX extends Application {
 			}
 		};
 		timer.start();
-
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
 				Renderer.handleKeyPress(event.getCode());
