@@ -25,38 +25,20 @@ public class JavaFX extends Application {
 		JavaFX.Buffer2D = buffer;
 	}
 	
-	public static void start(String[] args) {
-	
-		//		ObjBuffer2D buffer = new ObjBuffer2D(width, height);
-		//		
-		//		Buffer2D = buffer;
-		//	
-		//
-		//		launch(args);
-		//		Buffer2D = new ObjBuffer2D(500, 500);
-			//	new ObjBuffer2D(width, height);
-//		if (Buffer2D == null) {
-//			System.out.println("Won't draw");
-//			System.exit(0);
-//		}
+	public static void start(String[] args, int width, int height) {
+		new ObjBuffer2D(width, height);
 		launch(args);
 	}
 
-	int i = 0;
-
 	@Override
 	public void start(Stage primaryStage) {
-		if (i < 1) {
-			i++;
-			//Buffer2D = new ObjBuffer2D(500, 500);
-		} //this is garbage
 		Renderer R = new Renderer(Buffer2D);
-			//necessary part
+			
 		Group root = new Group(); //layout
 		Scene scene = new Scene(root, W, H);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("3D");
-		//necessary part
+		
 
 		timer = new AnimationTimer() {
 			@Override
