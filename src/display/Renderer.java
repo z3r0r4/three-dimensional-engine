@@ -15,20 +15,20 @@ import zeroComputation.Projection;
  * @description Renders all the Stuff and handles User input
  */
 public class Renderer {
-	private static GraphicsContext ctx;
+	private static GraphicsContext ctx = JavaFX.Buffer2D.ctx;;
 	//private static Cube Cube = new Cube(-50d, -50d, -50d, 100d, 100d, 100d);
 	private static Sphere Sphere = new Sphere();
-	//private static STL stl = new STL(".\\data\\Sphericon.stl");
+	private static STL stl = new STL(".\\data\\Sphericon.stl");
 	
 	public Renderer(ObjBuffer2D Obj1) {
 		ctx = Obj1.ctx;
 	}
 
 	public static void draw(ObjBuffer2D obj2d) {
-	// ctx = JavaFX.Buffer2D.ctx;
+	 //ctx = JavaFX.Buffer2D.ctx;
 		obj2d.clear();
 	//	Sphere.RotateXYZh(Math.toRadians(0.5), Math.toRadians(0.5), Math.toRadians(0));
-		drawObj(Sphere);
+		drawObj(stl);
 	}
 
 	public static void drawObj(Obj Obj1) {
@@ -42,8 +42,8 @@ public class Renderer {
 	}
 
 	public static void drawLine(Point A, Point B) {
-		Point.printM(A);
-		Point.printM(B);
+//		Point.printM(A);
+//		Point.printM(B);
 	ctx.strokeLine(A.getData(0, 0), A.getData(1, 0), B.getData(0, 0), B.getData(1, 0));
 	}
 

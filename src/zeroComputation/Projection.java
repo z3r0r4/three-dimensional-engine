@@ -12,11 +12,7 @@ public class Projection {
 
 	public static ArrayList<Point> OrthographicProjection(Obj Obj1) {
 		ArrayList<Point> d = new ArrayList<Point>();
-		//System.out.println("3D?");
-//		Point.printM(Obj1.getEdges().get(0));
 		Obj1.getEdges().forEach(p -> d.add(OrthographicProjection(p)));
-		//System.out.println("2D?");
-//		Point.printM(d.get(0));
 		return d;
 	}
 
@@ -45,10 +41,10 @@ public class Projection {
 				{ 0, 0, 2 / (f - n), -(f + n) / (f - n) },
 				{ 0, 0, 0, 1 }
 		});
-//		Point.printM(O);
-//		Point.printM(P);
-//		System.out.println("Product");
-//		Point.printM(new Point(Matrix.prod(O, P)));
+		Point.printM(O);
+		Point.printM(P);
+		System.out.println("Product");
+		Point.printM(new Point(Matrix.prod(O, P)));
 		return new Point(Matrix.prod(O, P));
 	}
 
