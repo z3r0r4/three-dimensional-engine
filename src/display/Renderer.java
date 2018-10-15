@@ -7,7 +7,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import objects.*;
 import zeroComputation.Point;
-import zeroComputation.Projection;
+import zeroComputation.Camera;
 
 /**
  * @author Z3R0R4
@@ -16,7 +16,7 @@ import zeroComputation.Projection;
  */
 public class Renderer {
 	private static GraphicsContext ctx = JavaFX.Buffer2D.ctx;;
-	//private static Cube Cube = new Cube(-50d, -50d, -50d, 100d, 100d, 100d);
+	private static Cube Cube = new Cube(-50d, -50d, -50d, 100d, 100d, 100d);
 	private static Sphere Sphere = new Sphere();
 	private static STL stl = new STL(".\\data\\Sphericon.stl");
 	
@@ -25,14 +25,13 @@ public class Renderer {
 	}
 
 	public static void draw(ObjBuffer2D obj2d) {
-	 //ctx = JavaFX.Buffer2D.ctx;
 		obj2d.clear();
-	//	Sphere.RotateXYZh(Math.toRadians(0.5), Math.toRadians(0.5), Math.toRadians(0));
-		drawObj(stl);
+	Cube.RotateXYZh(Math.toRadians(0.5), Math.toRadians(0.5), Math.toRadians(0.5));
+		drawObj(Cube);
 	}
 
 	public static void drawObj(Obj Obj1) {
-		ArrayList<Point> twoDEdges = Projection.OrthographicProjection(Obj1);
+		ArrayList<Point> twoDEdges = Camera.PerspectiveProjection(Obj1);
 		drawVertices(Obj1, twoDEdges);
 		drawFaces(Obj1, twoDEdges);
 	}
@@ -51,7 +50,7 @@ public class Renderer {
 		Obj1.getFaces().forEach(f -> {
 			Point[] faceP = new Point[f.length];
 			for (int i = 0; i < f.length; i++)
-				faceP[i] = Obj1.edges.get(f[i]);
+				faceP[i] = TwoDe.get(f[i]);
 			drawFace(faceP);
 		});
 	}

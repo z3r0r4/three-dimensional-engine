@@ -198,11 +198,14 @@ public class Matrix {
 	public Matrix copy() {
 		return new Matrix(this);
 	}
-/**
- * returns all rows of the Matrix concatenated as an double[] array
- * @param A Matrix which shall be turned into a array
- * @return double[] array containing all the lines of the Matrix
- */
+
+	/**
+	 * returns all rows of the Matrix concatenated as an double[] array
+	 * 
+	 * @param A
+	 *            Matrix which shall be turned into a array
+	 * @return double[] array containing all the lines of the Matrix
+	 */
 	public static double[] toArray_flat(Matrix A) {
 		double[] result = new double[A.getRows() * A.getColumns()];
 		for (int i = 0; i < A.getRows(); i++)
@@ -212,8 +215,8 @@ public class Matrix {
 	}
 
 	/**
-	 * returns an Matrix containing the values specified in the
-	 * given Array
+	 * returns an Matrix containing the values specified in the given Array
+	 * 
 	 * @param A
 	 *            2D-Double Array which holds the components of the new Matrix
 	 * @return an new Matrix Object containing the data of the Array
@@ -228,6 +231,7 @@ public class Matrix {
 		B.data = A;
 		return B;
 	}
+
 	/**
 	 * 
 	 * @param a
@@ -545,10 +549,11 @@ public class Matrix {
 	/**
 	 * Overwrites the Matrix of the current Instance with a component wise negated
 	 */
-	public void negate() {
+	public Matrix negate() {
 		// System.out.println("Negating: " + data + " like -Aij");
 		for (int i = 0; i < rows; i++)
 			for (int j = 0; j < columns; j++)
 				this.data[i][j] = -this.data[i][j];
+		return this;
 	}
 }
