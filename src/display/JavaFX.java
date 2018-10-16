@@ -7,6 +7,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import userHandler.Controller;
+import zeroComputation.Camera;
 
 /**
  * @author Z3R0R4
@@ -40,16 +42,24 @@ public class JavaFX extends Application {
 			@Override
 			public void handle(long now) {
 				Renderer.draw(Buffer2D); //updates the canvas with ctx
+				Camera.movement();
 			}
 		};
 		timer.start();
 
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
-				Renderer.handleKeyPress(event.getCode());
+				Controller.handleKeyPress(event.getCode());
 			}
 		});
-
+		scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent event) {
+				Controller.handleKeyRelease(event.getCode());
+			}
+		});
+		
+		
+		
 		root.getChildren().add(Buffer2D.getCanvas()); //adding the canvas, filled with stuff, to the scene
 		primaryStage.show(); //show window
 	}

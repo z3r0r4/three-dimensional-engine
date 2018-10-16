@@ -1,9 +1,16 @@
 package zeroComputation;
 
 import java.util.ArrayList;
+
+import display.Renderer;
 import objects.Obj;
 
 public class Camera {
+	private static Point c = new Point(0, 0, -200, 1);
+	private static Point θ = new Point(0, 0, 0);
+	public static Point v = new Point(0, 0, 0, 0);
+	public static Point vθ = new Point(0, 0, 0);
+
 	//
 	public static ArrayList<Point> simpleOrthographicProjection(Obj Obj1) {
 		ArrayList<Point> d = new ArrayList<Point>();
@@ -61,10 +68,8 @@ public class Camera {
 	}
 
 	private static Point PerspectiveProjection(Point a) {
-		Point c = new Point(0, 0, -200, 1);
-		Point θ = new Point(0, 0, 0);
+
 		Point e = new Point(0, 0, 200);
-		Point b = new Point(0, 0);
 
 		Matrix O = Matrix.fromArray(new double[][] {
 				{ 1, 0, -e.getX() / e.getZ(), 0 },
@@ -73,25 +78,32 @@ public class Camera {
 				{ 0, 0, -1 / e.getZ(), 1 }
 		});
 
-//		System.out.println("Cacmwe");
-//		Point.printM(a);
-//		Point.printM(c);
-
-		Point d = new Point(Matrix.add(a, c.negate()));
-
-//		System.out.println("equals");
-//		Point.printM(d);
-//		Point.printM(O);
+		Point d = Point.RotateXYZh(new Point(Point.sub(a, c)), θ);
+		
 
 		Point f = new Point(Matrix.prod(O, d));
 
-//		System.out.println("equalsFINN");
-//		Point.printM(f);
-//
-//		System.out.println("FIasdANLLsdfasdY");
-//
-//		Point.printM(b);
 		return new Point(f.getX() / f.getW(), f.getY() / f.getW());
+	}
+
+	public static void movement() {
+		//		if (v.length() != 0) {
+		//			c.add(Point.scalarmult(1, v));
+		//			//Point.printM(v);
+		//			v.sub(v.signum());
+		//		}
+		if (v.length() != 0) {
+			c.add(Point.scalarmult(0.4, v));
+		}
+		if (vθ.length() != 0) {
+			θ.add(Point.scalarmult(0.001, vθ));
+		}
+	}
+
+	public static void reset() {
+		c = new Point(0, 0, -200, 1);
+		θ = new Point(0, 0, 0);
+
 	}
 
 }

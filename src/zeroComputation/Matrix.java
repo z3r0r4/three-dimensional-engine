@@ -503,6 +503,29 @@ public class Matrix {
 				data[i][j] += B.data[i][j];
 	}
 
+	public Matrix sub(Matrix B) {
+		// System.out.println("Adding: " + data + " + " + B.data);
+		if (rows != B.rows || columns != B.columns) {
+			throw new IllegalArgumentException("Wrong Dimensions : rows != B.rows || columns!=B.columns");
+		}
+		for (int i = 0; i < rows; i++)
+			for (int j = 0; j < columns; j++)
+				this.data[i][j] -= B.data[i][j];
+		return this;
+	}
+
+	public static Matrix sub(Matrix A, Matrix B) {
+		// System.out.println("Adding: " + data + " + " + B.data);
+		if (A.rows != B.rows || A.columns != B.columns) {
+			throw new IllegalArgumentException("Wrong Dimensions : A.rows != B.rows || A.columns!=B.columns");
+		}
+		Matrix C = new Matrix(A);
+		for (int i = 0; i < A.rows; i++)
+			for (int j = 0; j < A.columns; j++)
+				C.data[i][j] -= B.data[i][j];
+		return C;
+	}
+
 	/**
 	 * "inverts" every component of a given Matrix 1/Aij
 	 * 

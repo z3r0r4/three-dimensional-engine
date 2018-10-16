@@ -19,14 +19,14 @@ public class Renderer {
 	private static Cube Cube = new Cube(-50d, -50d, -50d, 100d, 100d, 100d);
 	private static Sphere Sphere = new Sphere();
 	private static STL stl = new STL(".\\data\\Sphericon.stl");
-	
+
 	public Renderer(ObjBuffer2D Obj1) {
 		ctx = Obj1.ctx;
 	}
 
 	public static void draw(ObjBuffer2D obj2d) {
 		obj2d.clear();
-	Cube.RotateXYZh(Math.toRadians(0.5), Math.toRadians(0.5), Math.toRadians(0.5));
+		Cube.RotateXYZh(Math.toRadians(0.5), Math.toRadians(0.5), Math.toRadians(0.5));
 		drawObj(Cube);
 	}
 
@@ -41,9 +41,9 @@ public class Renderer {
 	}
 
 	public static void drawLine(Point A, Point B) {
-//		Point.printM(A);
-//		Point.printM(B);
-	ctx.strokeLine(A.getData(0, 0), A.getData(1, 0), B.getData(0, 0), B.getData(1, 0));
+		//		Point.printM(A);
+		//		Point.printM(B);
+		ctx.strokeLine(A.getData(0, 0), A.getData(1, 0), B.getData(0, 0), B.getData(1, 0));
 	}
 
 	public static void drawFaces(Obj Obj1, ArrayList<Point> TwoDe) {
@@ -62,16 +62,5 @@ public class Renderer {
 		ctx.setFill(Color.BLACK);
 		ctx.setFill(Color.web("rgba(255,0,0,0.4)"));
 		ctx.fillPolygon(x, y, x.length);
-	}
-
-	public static void handleKeyPress(KeyCode code) {
-		switch (code) {
-		case ESCAPE:
-			System.out.println("RIP me :(");
-			System.exit(0);
-			break;
-		default:
-			break;
-		}
 	}
 }

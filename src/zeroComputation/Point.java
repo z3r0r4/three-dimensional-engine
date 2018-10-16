@@ -61,6 +61,14 @@ public class Point extends Matrix {
 		return Math.sqrt(d);
 	}
 
+	public double length() {
+		double d = 0;
+		for (int i = 0; i < this.getRows(); i++)
+			d += Math.pow(this.getData(i, 0), 2);
+
+		return Math.sqrt(d);
+	}
+
 	public static double dotP(Point A, Point B) {
 		if (A.getRows() != B.getRows())
 			throw new IllegalArgumentException("Dimensions not equal");
@@ -137,6 +145,31 @@ public class Point extends Matrix {
 						.getData());
 	}
 
+	public static Point RotateXYZh(Point P, Point θ) {
+		Matrix R_x = Matrix.fromArray(new double[][] {
+				{ 1, 0, 0, 0 },
+				{ 0, Math.cos(θ.getX()), -Math.sin(θ.getX()), 0 },
+				{ 0, Math.sin(θ.getX()), Math.cos(θ.getX()), 0 },
+				{ 0, 0, 0, 1 } });
+
+		Matrix R_y = Matrix.fromArray(new double[][] {
+				{ Math.cos(θ.getY()), 0, Math.sin(θ.getY()), 0 },
+				{ 0, 1, 0, 0 },
+				{ -Math.sin(θ.getY()), 0, Math.cos(θ.getY()), 0 },
+				{ 0, 0, 0, 1 } });
+
+		Matrix R_z = Matrix.fromArray(new double[][] {
+				{ Math.cos(θ.getZ()), -Math.sin(θ.getZ()), 0, 0 },
+				{ Math.sin(θ.getZ()), Math.cos(θ.getZ()), 0, 0 },
+				{ 0, 0, 1, 0 },
+				{ 0, 0, 0, 1 } });
+
+		P.setData((new Point(
+				Matrix.prod(Matrix.prod(Matrix.prod(R_x, R_y), R_z), P)))
+						.getData());
+		return P;
+	}
+
 	public static double[] xPoints(Point... points) {
 		double[] x = new double[points.length];
 
@@ -186,4 +219,13 @@ public class Point extends Matrix {
 	public void setZ(double z) {
 		this.setData(z, 2, 0);
 	}
+
+	public Matrix signum() {
+		Point P = new Point(this);
+		for (int i = 0; i < this.getRows(); i++)
+			for (int j = 0; j < this.getColumns(); j++)
+				P.setData(Math.signum(this.getData(i, j)), i, j);
+		return P;
+	}
+
 }
